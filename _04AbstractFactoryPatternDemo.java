@@ -26,7 +26,6 @@ public class _04AbstractFactoryPatternDemo {
 			col.fill();
 		}
 		
-		//https://www.tutorialspoint.com/design_pattern/abstract_factory_pattern.htm
 		
 		System.out.println("End main..");
 
