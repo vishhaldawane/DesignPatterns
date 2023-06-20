@@ -1,0 +1,477 @@
+
+		Palak           Umang   Sarvesh
+
+Prashant	Harshal	Nisha	Tejal   Anil
+					nikhil
+Shivani
+
+ 9820 4434 64
+ vishalviniing@gmail.com
+
+
+				
+
+	Design Patterns
+
+		- Java way
+
+
+	What is a pattern?
+
+
+Connection conn = 	DriverManager.getConnection(...);
+
+con..
+
+
+1. requirement/usage/purpose
+2. environment
+3. look and feel
+4. budget
+5. maintenance
+6. efficiency
+7. flexibility / Change request
+8. security
+-------------
+
+Enterprise Application Server / Framework [ spring ] 
+
+Enterprise application
+
+1. Remote capability
+	Socket 
+	ServerSocket
+
+2. High Availability - HA
+	24 x 7 
+
+3. Multithreaded
+	Vector		vs 	ArrayList
+				|
+				Iterator <-- 
+4. Pooling of resources - 
+5. Caching of resources - 
+6. Transaction management - ACID
+7. Security managment - https / otp / grid / tp / auth2.0 /sso
+
+
+
+1. DB
+2. Plain Object | POJO POJI
+3. Repositories
+4. Service 
+5. Controller/RestController	
+----------------------------------------
+6. UI
+	Controller
+	Service
+	Plain Objects
+
+
+
+					who?
+					|developer?
+			-----------------------------------
+			|				|
+			where?				when?
+			|place				|time
+		-------------------------------------------------
+		|			|			|
+		why?			what?			how?
+		 REASON			 inFORMation		 implementation
+								   |
+							------------------
+							|		|
+							success	<---- feedback
+
+	fundamental unit of jpl/dotnet/c++ is to write a class
+	fundamental unit of oops is to define a type - interfaces
+
+
+		what is interface = pure type 
+
+
+
+interface Withdrawing {
+	void withdraw();
+}
+interface Depositing {
+	void deposit() {
+}
+
+class SavingsAccount implements Withdrawing, Depositing
+{
+	public void withdraw() { }
+	public void deposit(){}
+}
+
+class FundTransferService
+{
+	void transfer(Withdrawing src, Depositing trg, float amt) {
+		src.deposit(amt);
+		trg.withdraw(amt);
+	}
+}
+
+Classification of patterns
+----------------------------
+
+1. Creational
+	a. Singleton
+
+
+2. Structural
+
+3. Behavioral
+
+
+
+
+				Association
+				|
+		--------------------------------------
+		|	|	|	|
+		isA	hasA	usesA	producesA
+		|	|	|	|
+		structure	operational/functional
+
+
+
+		class ATMMachine extends Machine //isA
+		{
+			CardReader reader = new CardReader();// hasA
+			CashBox cashBox = new CashBox();
+			KeyPad pad = new KeyPad();
+			Screen screen = new Screen();
+
+			//producesA		//usesA
+			ATMBill 	dispenseCash(Card card) {
+				
+				..
+				..
+			}
+		}
+		
+
+	Derivation		vs		Implementation
+	|					|
+
+	A					A	I
+	| fun(){}				|fun(); |foo();
+	|					|
+	B					B
+						fun(){} foo(){}
+
+
+
+
+
+Components orthogonal model
+-----------------------------
+
+			x---- Data Type
+			|		butter milk
+			|		int/Account
+			|
+		y------ i ------z
+		|	|	| Collections.sort/search
+	Container	|	Algorithm
+	|	      Iterator		|
+	Glass		|		drink(){}
+	ArrayList	Straw		sort(){}
+			for/foreach
+					Comparable <--> Comparator
+	equals/hashCode
+	
+
+				Iterable
+				| Iterator iterator();
+				|
+				Collection
+				|
+			------------------
+			|		|
+			List		Set
+			|		|
+			AL LL		TS HS
+			|
+
+TS a = new TS();
+a.add(10);
+a.add(20);
+a.add(30);
+
+Iterator i = a.iterator();
+while(i.hasNext()) {
+	i.next() -> SOP
+}
+interface Iterator
+{
+	Object next();
+	boolean hasNext();
+	void remove();
+}
+class ArrayList implements List		
+{
+	Iterator iterator()
+	{
+		...index number - dealing
+		return new ArrayListIterator();
+	}
+	private class ArrayListIterator implements Iterator
+	{
+		
+		Object next() { }
+		boolean hasNext() { }
+		void remove() { }
+	}
+}
+
+class LinkedList implements List		
+{
+	Iterator iterator()
+	{
+		...ptr.next/ptr.prev - dealing
+	}
+
+	private class LinkedListIterator implements Iterator
+	{
+		
+		Object next() { ptr.prev or ptr.next code }
+		boolean hasNext() { }
+		void remove() { }
+	}
+}
+
+class TreeSet implements List		
+{
+	Iterator iterator()
+	{
+		...RootLR- dealing ( inorder/preorder/postorder)
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+DB
+|	
+class Pojo {
+}
+
+class Repo
+{
+	crud() {
+		..tm
+		query
+		..tm
+	}
+}
+
+class Service
+{
+	doService() {
+		tm
+		...  //domain specific b/l 
+		repo.crud();
+		..
+		tm
+	}
+}
+
+class Controller
+{
+	Service serv;
+
+	doSome() {	
+		...
+		serv.doService();
+		...
+	}
+}
+
+
+UI - service/actions
+
+
+interface User
+{
+	void read();
+}
+interface PowerUser extends User
+{
+	void write();
+	void update();
+}
+interface AdminUser extends PowerUser
+{
+	void delete();
+	void readAll();
+}
+
+class ProxyImage implements User,PowerUser,AdminUser
+{
+
+}
+
+
+User user = new ProxyImage();
+PowerUser power = new ProxyImage();
+Adminuser admin = new ProxyImage();
+
+
+
+
+
+
+
+
+
+
+
+
+
+interfaces			vs		abstract classes
+
+
+abstract class Shape
+{
+	Shape getShape(String hint) {
+		..
+		..
+		..
+	}
+}
+
+
+				Shape
+				|
+		----------------------------------
+		|			|
+		Square			Circle
+		|side			|horizRad
+		|isA			|isA
+		Rectangle		Ellipse
+		 side2			  vertRad
+
+				Shape
+				|
+		----------------------------------
+		|			|
+	        Rectangle		Ellipse	
+		|l,b			|r1,r2
+		Square			Circle
+					ra
+
+Doctor
+|
+Surgeon
+|
+HeartSurgeon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyFrame extends Frame
+{
+
+	WindowAdapter wa = new WindowAdapter()
+	{
+		windowClosing() {
+		}
+	}
+}
+
+class WindowAdapter implements WindowListener
+{
+
+	windowExited() { }
+	windowEntered() { }
+	windowCLosed(){ }
+	windowClosing(){}
+	windowIconified(){}
+	windowDeiconified(){}
+	windowActivated(){}
+}
+
+
+
+empno	ename	mgr	desg	sal
+123	king	0	presi	5000
+223     smith   123	manager 4500
+445     john    223	clerk
+
+				King
+				|
+			-----------
+			|
+			smith
+			|
+		-----------
+		|
+		john
+
+
+
+
+
+SQL select * from emp where job='MANAGER' and sal >= 5000
+HQL
+JPQL
+
+CQL select * from("emp).where("job").in("MANAGER").and("sal").greaterThan(5000)
+
+
+e1 = e3 + e2; // + is a friend operator +()
+
+e1 = e3.add(e2);
+
+
+
+
+			Corejava		Spring
+	Student		StudentDAO		StudentRepository
+	Flight		FlightDAO		FlightRepository
+
+
+		SpringDataJPA
+
+		interface StudentRepository extends CrudRepository<Student>
+		{
+		}
+
+
+
+
+
+
+
+		
+			
+
+
+
+
+
+		
+
